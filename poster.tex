@@ -209,14 +209,14 @@
     \block{Classes of Nested Sampler}{
         Nested sampling algorithms differ in how they sample new points from the prior, forming two main categories:\\
         \begin{minipage}{0.22\textwidth}
-            \innerblock{Chain-based}{
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}Chain-based}{
                 Taking a sufficiently long random walk within the likelihood contour from an existing live point will generate a new live point. For example, \polychord first uses the covariance matrix of the live points to whiten the space, then perform's Neal's slice sampling along orthogonal directions in that space. \texttt{dynesty} also implements both Neal's and Hamiltonian slice sampling, along with uniform sampling and random walks.
 
                 With multiple modes, contour whitening is ineffective, and a strategy is required to decide from which mode to sample since a random walk restricted by the likelihood contour will never reach another mode. \polychord, after identifying its clusters, picks one of the clusters at random in proportion to its prior volume.
             }
         \end{minipage}\hfill
         \begin{minipage}{0.22\textwidth}
-            \innerblock{Region-based}{
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}Region-based}{
                 Region-based samplers construct regions around the live points to approximate the likelihood contour, for example \texttt{MultiNest} constructs a series of ellipsoids. These regions are usually expanded by some numerical factor to improve their chances of fully enclosing the likelihood contour, then a point is rejection-sampled from them. The curse of dimensionality means that these techniques are only effective up to $\mathcal O(10)$ dimensions, since the rejection sampling becomes too inefficient, or the expansion factor would have to be so low that significant regions of the likelihood contour would be missed. Multi-modality will also cause inefficiency since the ellipsoids will have to be very large to encompass all modes.
                 \\
             }
