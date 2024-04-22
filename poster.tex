@@ -153,35 +153,32 @@
 
     \block{Application to cosmological $\mathcal P_\mathcal R(k)$}{%
 
-
-        \begin{minipage}[]{0.2\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/image_9}
-        \end{minipage}\hfill
-        \begin{minipage}[]{0.2\textwidth}
-            Minipages can be useful for placing figures side-by-side. They can also be used to place text side-by-side with figures. Here is an example of a minipage with a figure on the left and text on the right.\\
-            Functional posteriors were produced using the \texttt{fgivenx} package \cite{fgivenx}
-
-            Here is Bayes theorem again
-            \begin{equation}
-                P(A|B) = \frac{P(B|A)P(A)}{P(B)}
-                \nonumber
-            \end{equation}
-            This can be used to set up arrays of figures:
-        \end{minipage}\\
-
-
-        \hfill%
-        \begin{minipage}[]{0.22\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/image_7}
-            \includegraphics[width=\textwidth]{images/image_8}
-        \end{minipage}%
-        \begin{minipage}[]{0.14\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/image_2}
+        \begin{minipage}{0.22\textwidth}
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}K-nearest-neighbours}{
+                \centering
+                \includegraphics[width=0.9\textwidth]{images/amsterdam/knn}
+            }
         \end{minipage}
-
+        \hfill
+        \begin{minipage}{0.22\textwidth}
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}X-means}{
+                \centering
+                \includegraphics[width=0.9\textwidth]{images/amsterdam/xmeans}
+            }
+        \end{minipage}
+        \begin{minipage}{0.22\textwidth}
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}DBSCAN}{
+                \centering
+                \includegraphics[width=0.9\textwidth]{images/amsterdam/dbscan}
+            }
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.22\textwidth}
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}using $\mathcal L$ information}{
+                \centering
+                \includegraphics[width=0.9\textwidth]{images/amsterdam/convex}
+            }
+        \end{minipage}
     }
 
     \block{BibTeX}{%
