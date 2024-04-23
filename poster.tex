@@ -149,8 +149,49 @@
             P(A|B) = \frac{P(B|A)P(A)}{P(B)}
             \nonumber
         \end{equation}
+   }
+ 
+
+    \block{Classes of Nested Sampler}{
+        Nested sampling algorithms differ in how they sample new points from the prior, forming two main categories:\\
+        \begin{minipage}{0.22\textwidth}
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}Chain-based}{
+                Taking a sufficiently long random walk within the likelihood contour from an existing live point will generate a new live point. For example, \polychord{} first uses the covariance matrix of the live points to whiten the space, then perform's Neal's slice sampling along orthogonal directions in that space. \texttt{dynesty} also implements both Neal's and Hamiltonian slice sampling, along with uniform sampling and random walks.
+
+                With multiple modes, contour whitening is ineffective, and a strategy is required to decide from which mode to sample since a random walk restricted by the likelihood contour will never reach another mode. \polychord{}, after identifying its clusters, picks one of the clusters at random in proportion to its prior volume.
+            }
+        \end{minipage}\hfill
+        \begin{minipage}{0.22\textwidth}
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}Region-based}{
+                Region-based samplers construct regions around the live points to approximate the likelihood contour, for example \texttt{MultiNest} constructs a series of ellipsoids. These regions are usually expanded by some numerical factor to improve their chances of fully enclosing the likelihood contour, then a point is rejection-sampled from them. The curse of dimensionality means that these techniques are only effective up to $\mathcal O(10)$ dimensions, since the rejection sampling becomes too inefficient, or the expansion factor would have to be so low that significant regions of the likelihood contour would be missed. Multi-modality will also cause inefficiency since the ellipsoids will have to be very large to encompass all modes.
+                \\
+            }
+        \end{minipage}\\
+        \vspace{1em}
+
+        \coloredbox{Hybrid method combine the two approaches in an attempt to alleviate the dimensionality scaling of region-based methods, while reducing the number of likelihood evaluations made outside the contour.}
+
     }
 
+    \block{Gallery}{%
+        \centering
+            \includegraphics[height=0.1\textwidth]{images/image_9}%
+            \includegraphics[height=0.1\textwidth]{images/image_17}%
+            \includegraphics[height=0.1\textwidth]{images/image_12}%
+            \includegraphics[height=0.1\textwidth]{images/image_11}\\
+            \includegraphics[height=0.1\textwidth]{images/image_14}%
+            \includegraphics[height=0.1\textwidth]{images/image_15}%
+            \includegraphics[height=0.1\textwidth]{images/image_16}%
+            \includegraphics[height=0.1\textwidth]{images/image_18}%
+        %\includegraphics[height=0.095\textwidth]{images/image_2}%
+        %\includegraphics[height=0.095\textwidth]{images/image_3}%
+        %\includegraphics[height=0.095\textwidth]{images/image_4}%
+        %\includegraphics[height=0.095\textwidth]{images/image_6}
+        %\includegraphics[height=0.095\textwidth]{images/image_10}
+        %\includegraphics[height=0.095\textwidth]{images/image_13}
+    }
+
+    \column{0.5}
     \block{Cosmological application $\mathcal P_\mathcal R(k)$}{%
         \begin{minipage}{0.22\textwidth}
             This investigation was initially motivated by a reconstruction of the primordial matter power spectrum $\mathcal P_\mathcal R(k)$ using flexknots and the Planck 2018 likelihoods. Planck measured the $C_\ell$ multipole range $1\le\ell\le7000$, corresponding to $10^{-4}\le k\le10^{-0.3}$. Flexknots are parameterisations of 1D functions, consisting of a series of splines (in this case linear) joined at knots. The number and positions of knots are determined by the data, which can be performed by either combining several runs with fixed number of knots, or the number of knots being itself a parameter. In the former case, we noticed that with three knots only the mode with the central knot towards the left was being fully explored.
@@ -195,57 +236,7 @@
         \coloredbox{K-nearest-neighbours and DBSCAN fail to separate the central knot into two clusters, while X-means does so reliably. The likelihood information approach was able to separate the central knot into multiple clusters, but also tended to over-cluster.}
     }
 
-    \block{BibTeX}{%
-        As it is \LaTeX, you can use BibTeX to manage your references. You can also use BibTeX to manage the references in the bibliography.}
-    \block{Printing your poster}{
-        You can print your poster same day (although don't leave it this late!) at the University Print Shop. I recommend a0, portrait, lightweight cloth (which can be gently folded in a suitcase)
-        \href{https://www.pdn.cam.ac.uk/other-pages/avmg/posters}{www.pdn.cam.ac.uk/other-pages/avmg/posters}
-    }
 
-
-
-
-
-    \column{0.5}
-
-    \block{Classes of Nested Sampler}{
-        Nested sampling algorithms differ in how they sample new points from the prior, forming two main categories:\\
-        \begin{minipage}{0.22\textwidth}
-            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}Chain-based}{
-                Taking a sufficiently long random walk within the likelihood contour from an existing live point will generate a new live point. For example, \polychord{} first uses the covariance matrix of the live points to whiten the space, then perform's Neal's slice sampling along orthogonal directions in that space. \texttt{dynesty} also implements both Neal's and Hamiltonian slice sampling, along with uniform sampling and random walks.
-
-                With multiple modes, contour whitening is ineffective, and a strategy is required to decide from which mode to sample since a random walk restricted by the likelihood contour will never reach another mode. \polychord{}, after identifying its clusters, picks one of the clusters at random in proportion to its prior volume.
-            }
-        \end{minipage}\hfill
-        \begin{minipage}{0.22\textwidth}
-            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}Region-based}{
-                Region-based samplers construct regions around the live points to approximate the likelihood contour, for example \texttt{MultiNest} constructs a series of ellipsoids. These regions are usually expanded by some numerical factor to improve their chances of fully enclosing the likelihood contour, then a point is rejection-sampled from them. The curse of dimensionality means that these techniques are only effective up to $\mathcal O(10)$ dimensions, since the rejection sampling becomes too inefficient, or the expansion factor would have to be so low that significant regions of the likelihood contour would be missed. Multi-modality will also cause inefficiency since the ellipsoids will have to be very large to encompass all modes.
-                \\
-            }
-        \end{minipage}\\
-        \vspace{1em}
-
-        \coloredbox{Hybrid method combine the two approaches, in an attempt to alleviate the dimensionality scaling of region-based methods, while reducing the number of likelihood evaluations made outside the contour.}
-
-    }
-
-    \block{Gallery}{%
-        \centering
-            \includegraphics[height=0.1\textwidth]{images/image_9}%
-            \includegraphics[height=0.1\textwidth]{images/image_17}%
-            \includegraphics[height=0.1\textwidth]{images/image_12}%
-            \includegraphics[height=0.1\textwidth]{images/image_11}\\
-            \includegraphics[height=0.1\textwidth]{images/image_14}%
-            \includegraphics[height=0.1\textwidth]{images/image_15}%
-            \includegraphics[height=0.1\textwidth]{images/image_16}%
-            \includegraphics[height=0.1\textwidth]{images/image_18}%
-        %\includegraphics[height=0.095\textwidth]{images/image_2}%
-        %\includegraphics[height=0.095\textwidth]{images/image_3}%
-        %\includegraphics[height=0.095\textwidth]{images/image_4}%
-        %\includegraphics[height=0.095\textwidth]{images/image_6}
-        %\includegraphics[height=0.095\textwidth]{images/image_10}
-        %\includegraphics[height=0.095\textwidth]{images/image_13}
-    }
 
     \block{Concluding box}{%
         \lipsum[4]
