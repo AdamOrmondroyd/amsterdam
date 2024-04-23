@@ -173,22 +173,15 @@
 
     }
 
-    \block{Gallery}{%
-        \centering
-            \includegraphics[height=0.1\textwidth]{images/image_9}%
-            \includegraphics[height=0.1\textwidth]{images/image_17}%
-            \includegraphics[height=0.1\textwidth]{images/image_12}%
-            \includegraphics[height=0.1\textwidth]{images/image_11}\\
-            \includegraphics[height=0.1\textwidth]{images/image_14}%
-            \includegraphics[height=0.1\textwidth]{images/image_15}%
-            \includegraphics[height=0.1\textwidth]{images/image_16}%
-            \includegraphics[height=0.1\textwidth]{images/image_18}%
-        %\includegraphics[height=0.095\textwidth]{images/image_2}%
-        %\includegraphics[height=0.095\textwidth]{images/image_3}%
-        %\includegraphics[height=0.095\textwidth]{images/image_4}%
-        %\includegraphics[height=0.095\textwidth]{images/image_6}
-        %\includegraphics[height=0.095\textwidth]{images/image_10}
-        %\includegraphics[height=0.095\textwidth]{images/image_13}
+    \block{Correlated cluster volumes}{%
+        When a cluster $p$ is divided, the remaining prior volume $X_p$ is divided among its subclusters $X_i$. However, in nested sampling we do not have the precise prior volume, only its expectation value $\overline{X}$ and associated error. This is then divided according to the proportion of live points in each cluster:
+
+        \begin{equation}
+            \overline X_i = \frac{n_i}{n_p} \overline X_p \text, \quad \overline{X_i^2} = \frac{n_i(n_i+1)}{n_p(n_p+1)} \overline{X_p^2} \text, \quad \overline{X_iX_j} = \frac {n_i n_j}{n_p(n_p+1)} \overline{X_p^2} \text.
+            \nonumber
+        \end{equation}
+        
+        Since $\overline{X_iX_j} \neq \overline{X_i}\,\overline{X_j}$, the error on the prior volume of each cluster is correlated. This is important when deciding from which cluster to sample; currently \polychord{} chooses a cluster propotionally to its prior volume $\overline{X_i}$, but this neglects their correlation. We are experimenting with drawing a set of $X_i$ from their joint distribution before each live point is generated, which has shown an improvement in sampling known symmetric multi-modal distributions.\\
     }
 
     \column{0.5}
