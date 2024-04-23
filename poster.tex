@@ -162,14 +162,30 @@
     }
 
     \block{Correlated cluster volumes}{%
-        When a cluster $p$ is divided, the remaining prior volume $X_p$ is divided among its subclusters $X_i$. However, in nested sampling we do not have the precise prior volume, only its expectation value $\overline{X}$ and associated error. This is then divided according to the proportion of live points in each cluster:
-
-        \begin{equation}
-            \overline X_i = \frac{n_i}{n_p} \overline X_p \text, \quad \overline{X_i^2} = \frac{n_i(n_i+1)}{n_p(n_p+1)} \overline{X_p^2} \text, \quad \overline{X_iX_j} = \frac {n_i n_j}{n_p(n_p+1)} \overline{X_p^2} \text.
-            \nonumber
-        \end{equation}
+        \begin{minipage}{0.22\textwidth}
+            When a cluster $p$ is divided, the remaining prior volume $X_p$ is divided among its subclusters $X_i$. However, in nested sampling we do not have the precise prior volume, only its expectation value $\overline{X}$ and associated error. This is then divided according to the proportion of live points in each cluster $n_i$:
+            \coloredbox{
+            \begin{equation}
+                \begin{aligned}
+                \overline X_i &= \frac{n_i}{n_p} \overline X_p \text, \quad \overline{X_i^2} = \frac{n_i(n_i+1)}{n_p(n_p+1)} \overline{X_p^2} \text,\\
+                \quad \overline{X_iX_j} &= \frac {n_i n_j}{n_p(n_p+1)} \overline{X_p^2} \text.
+                \end{aligned}
+                \nonumber
+            \end{equation}
+            }
         
-        Since $\overline{X_iX_j} \neq \overline{X_i}\,\overline{X_j}$, the error on the prior volume of each cluster is correlated. This is important when deciding from which cluster to sample; currently \polychord{} chooses a cluster propotionally to its prior volume $\overline{X_i}$, but this neglects their correlation. We are experimenting with drawing a set of $X_i$ from their joint distribution before each live point is generated, which has shown an improvement in sampling known symmetric multi-modal distributions.\\
+        \end{minipage}\hfill
+        \begin{minipage}{0.22\textwidth}
+            \coloredbox{
+            \centering
+            \includegraphics[width=0.9\textwidth]{images/volumes.pdf}
+
+            KDE of posterior samples from twin 2D Gaussian likelihoods with 2000 live points, viewed along one of the axes.
+            }
+        \end{minipage}
+
+        Since $\overline{X_iX_j} \neq \overline{X_i}\,\overline{X_j}$, the error on the prior volume of each cluster is correlated. This is important when deciding from which cluster to sample; currently \polychord{} chooses a cluster propotionally to its prior volume $\overline{X_i}$, but this neglects their correlation. We are experimenting with drawing a set of $X_i$ from their joint distribution before each live point is generated, which has improved posteriors of symmetric multi-modal likelihoods.\\
+
     }
 
     \column{0.5}
