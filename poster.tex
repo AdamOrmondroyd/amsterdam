@@ -129,16 +129,64 @@
     \column{0.5}
 
     \block{The first text box}{%
-        \vspace{0.5em}
-        \LaTeX is a high-quality typesetting system, it is excellent at mathematics, such as the equation of a circle $x^2 + y^2 = r^2$.
-        \vspace{0.5em}
+        \begin{minipage}{0.22\textwidth}
+        \end{minipage}\\
+        \hfill
+        \begin{minipage}{0.22\textwidth}
+            \coloredbox{
+                \centering
+                \includegraphics[width=0.9\textwidth]{images/clusterdam}
 
-        Here is Bayes theorem:
-        \begin{equation}
-            P(A|B) = \frac{P(B|A)P(A)}{P(B)}
-            \nonumber
-        \end{equation}
+                2D demonstation of \polychord{} K-Nearest Neighbours, \texttt{pyclustering} X-means and \texttt{scikit-learn} DBSCAN and HDBSCAN \cite{polychorda, polychordb, pyclustering, sklearn}.
+            }
+        \end{minipage}\\
    }
+    \block{Application to cosmology $\mathcal P_\mathcal R(k)$}{%
+        \begin{minipage}{0.22\textwidth}
+            This investigation was initially motivated by a reconstruction of the primordial matter power spectrum $\mathcal P_\mathcal R(k)$ using flexknots \cite{flexknota, flexknotb}, and the Planck 2018 likelihoods \cite{planck2018v, planck2018viii}. Planck measured the $C_\ell$ multipole range $1\le\ell\le7000$, corresponding to $10^{-4}\le k\le10^{-0.3}$ \cite{ppsr}. Flexknots are parameterisations of 1D functions, consisting of a series of splines (in this case linear) joined at knots. The number and positions of knots are determined by the data, which can be performed by either combining several runs with fixed number of knots, or the number of knots being itself a parameter. In the former case, we noticed that with three knots only the mode with the central knot towards the left was being fully explored.
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.22\textwidth}
+            \coloredbox{
+                \centering
+                \includegraphics[width=0.9\textwidth]{images/amsterdam/example_flexknot}
+                Three examples of flexknots with three knots.
+            }
+        \end{minipage}\\
+
+
+        \polychord{}'s native K-nearest-neighbours clustering was unable to separate the positions of the central knot into two distinct clusters, so we explored both off-the-shelf clustering algorithms and approaches which include likelihood information. \\
+
+        \begin{minipage}{0.22\textwidth}
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}K-nearest-neighbours}{
+                \centering
+                \includegraphics[width=0.9\textwidth]{images/amsterdam/knn}
+            }
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.22\textwidth}
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}X-means}{
+                \centering
+                \includegraphics[width=0.9\textwidth]{images/amsterdam/xmeans}
+            }
+        \end{minipage}
+        \begin{minipage}{0.22\textwidth}
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}DBSCAN}{
+                \centering
+                \includegraphics[width=0.9\textwidth]{images/amsterdam/dbscan}
+            }
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.22\textwidth}
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}using likelihood information}{
+                \centering
+                \includegraphics[width=0.9\textwidth]{images/amsterdam/convex}
+            }
+        \end{minipage}\\
+        \coloredbox{K-nearest-neighbours and DBSCAN fail to separate the central knot into two clusters, while X-means does so reliably. The likelihood information approach was able to separate the central knot into multiple clusters, but also tended to over-cluster. Functional posterior plots created using \texttt{fgivenx} \cite{fgivenx}, and scatterplots showing clusters were created using a development branch of \texttt{anesthetic}\cite{anesthetic}.}
+    }
+
+    \column{0.5}
 
     \block{Classes of Nested Sampler}{
         Nested sampling algorithms differ in how they sample new points from the prior, forming two main categories:\\
@@ -187,58 +235,8 @@
         Since $\overline{X_iX_j} \neq \overline{X_i}\,\overline{X_j}$, the error on the prior volume of each cluster is correlated. This is important when deciding from which cluster to sample; currently \polychord{} chooses a cluster propotionally to its prior volume $\overline{X_i}$, but this neglects their correlation. We are experimenting with drawing a set of $X_i$ from their joint distribution before each live point is generated, which has improved posteriors of symmetric multi-modal likelihoods.\\
 
     }
+    
 
-    \column{0.5}
-    \block{Application to cosmology $\mathcal P_\mathcal R(k)$}{%
-        \begin{minipage}{0.22\textwidth}
-            This investigation was initially motivated by a reconstruction of the primordial matter power spectrum $\mathcal P_\mathcal R(k)$ using flexknots \cite{flexknota, flexknotb}, and the Planck 2018 likelihoods \cite{planck2018v, planck2018viii}. Planck measured the $C_\ell$ multipole range $1\le\ell\le7000$, corresponding to $10^{-4}\le k\le10^{-0.3}$ \cite{ppsr}. Flexknots are parameterisations of 1D functions, consisting of a series of splines (in this case linear) joined at knots. The number and positions of knots are determined by the data, which can be performed by either combining several runs with fixed number of knots, or the number of knots being itself a parameter. In the former case, we noticed that with three knots only the mode with the central knot towards the left was being fully explored.
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.22\textwidth}
-            \coloredbox{
-                \centering
-                \includegraphics[width=0.9\textwidth]{images/amsterdam/example_flexknot}
-                Three examples of flexknots with three knots.
-            }
-        \end{minipage}\\
-
-
-        \polychord{}'s native K-nearest-neighbours clustering was unable to separate the positions of the central knot into two distinct clusters, so we explored both off-the-shelf clustering algorithms and approaches which include likelihood information. \\
-
-        \begin{minipage}{0.22\textwidth}
-            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}K-nearest-neighbours}{
-                \centering
-                \includegraphics[width=0.9\textwidth]{images/amsterdam/knn}
-            }
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.22\textwidth}
-            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}X-means}{
-                \centering
-                \includegraphics[width=0.9\textwidth]{images/amsterdam/xmeans}
-            }
-        \end{minipage}
-        \begin{minipage}{0.22\textwidth}
-            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}DBSCAN}{
-                \centering
-                \includegraphics[width=0.9\textwidth]{images/amsterdam/dbscan}
-            }
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.22\textwidth}
-            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}using likelihood information}{
-                \centering
-                \includegraphics[width=0.9\textwidth]{images/amsterdam/convex}
-            }
-        \end{minipage}\\
-        \coloredbox{K-nearest-neighbours and DBSCAN fail to separate the central knot into two clusters, while X-means does so reliably. The likelihood information approach was able to separate the central knot into multiple clusters, but also tended to over-cluster. Functional posterior plots created using \texttt{fgivenx} \cite{fgivenx}, and scatterplots showing clusters were created using a development branch of \texttt{anesthetic}\cite{anesthetic}.}
-    }
-
-
-
-    \block{Concluding box}{%
-        \lipsum[4]
-    }
 
     \renewcommand{\section}[2]{}%
     \block{References}{%
