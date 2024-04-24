@@ -134,7 +134,7 @@
                 \centering
                 \includegraphics[width=0.9\textwidth]{images/clusterdam}
 
-                2D demonstation of \polychord{} K-Nearest Neighbours, \texttt{pyclustering} X-means and \texttt{scikit-learn} DBSCAN \cite{polychorda, polychordb, pyclustering, sklearn}.
+                2D demonstation of \polychord{} K-Nearest Neighbours, \texttt{pyclustering} X-means and \texttt{scikit-learn} (H)DBSCAN \cite{polychorda, polychordb, pyclustering, sklearn}.
             }
         \end{minipage}
         \hfill
@@ -192,7 +192,7 @@
     \column{0.5}
 
     \block{Classes of Nested Sampler}{
-        Nested sampling algorithms differ in how they sample new points from the prior, forming two main categories:\\
+        Nested sampling algorithms have two main strategies for sampling new points from the prior:\\
         \begin{minipage}{0.22\textwidth}
             \innerblock{\rule[-0.6ex]{0pt}{2.5ex}Chain-based}{
                 Taking a sufficiently long random walk within the likelihood contour from an existing live point will generate a new live point. For example, \polychord{} first uses the covariance matrix of the live points to whiten the space, then perform's Neal's slice sampling along orthogonal directions in that space \cite{polychorda, polychordb}. \texttt{dynesty} also implements both Neal's and Hamiltonian slice sampling, along with uniform sampling and random walks \cite{dynesty}.
