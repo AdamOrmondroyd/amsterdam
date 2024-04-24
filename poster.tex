@@ -141,7 +141,7 @@
         \begin{minipage}{0.22\textwidth}
             The nested sampling algorithm \polychord{} was originally advertised suggesting that the user should experiment with their favourite cluster-identifying methods, but provides no guidance on how to do so \cite{polychorda, polychordb}. We have added an interface which allows the user to substitute any clustering strategy at the Python level, allowing for easier experimentation with alternatives such as the selection provided by \texttt{scikit-learn} and \texttt{pyclustering} \cite{sklearn, pyclustering}.
 
-            Some algorithms are better suited than others to identifying posterior modes of nested sampling live points, for example K-means and spectral clustering need to be told the number of clusters to look for, and others may not assign every point to a cluster.
+            Some algorithms are better suited than others to identifying posterior modes of nested sampling live points, for example K-means and spectral clustering need to be told the number of clusters to look for, others may not assign every point to a cluster. Some algorithms find clusters where there are none!
         \end{minipage}\\
    }
     \block{Application to cosmology $\mathcal P_\mathcal R(k)$}{%
