@@ -122,7 +122,7 @@
         \hspace{20pt}
         \begin{minipage}[b]{0.73\textwidth}
             Clustering algorithms are integral to multi-modal nested sampling, for both region-based samplers such as \texttt{MultiNest}, and chain-based samplers such as \polychord{}. Robust identification clusters of live points is crucial for effective spawning of new live points, prior volume estimation and therefore the total evidence calculation. Reliable cluster detection also allows the calculation of the sub-evidences of each cluster, which may correspond to different physical phenomena.
-            We have explored extensions to the clustering approach within \polychord{}, and found that one must not neglect the correlation between the volume estimates of posterior modes corresponding to each cluster during live point generation. We show how different clustering methods affect a reconstruction of the cosmological primordial matter power spectrum $\mathcal P_\mathcal R(k)$.
+            We have explored extensions to the clustering approach within \polychord{}, and found that including correlation between the volume estimates of clusters increases the accuracy of evidence calculations. We show how different clustering methods affect a reconstruction of the cosmological primordial matter power spectrum $\mathcal P_\mathcal R(k)$.
         \end{minipage}%
         \hspace{20pt}
         \includegraphics[height=0.09\textwidth]{images/adam_ormondroyd}
