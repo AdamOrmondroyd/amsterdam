@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{siunitx}
 \usepackage{bm}
+\usepackage[final]{listings}
 
 \newcommand{\CORE}{The CORE collaboration}
 \newcommand{\PLANCK}{The Planck collaboration}
@@ -24,6 +25,9 @@
 \newcommand{\polychord}{\texttt{PolyChord}}
 
 \DeclareSIUnit \parsec {pc}
+\lstset{
+  basicstyle=\fontsize{13}{15}\selectfont\ttfamily
+}
 
 
 \makeatletter
@@ -150,6 +154,7 @@
     \block{Application to cosmology $\mathcal P_\mathcal R(k)$}{%
         \begin{minipage}{0.28\textwidth}
             This investigation was initially motivated by a reconstruction of the primordial matter power spectrum $\mathcal P_\mathcal R(k)$ using flexknots \cite{flexknota, flexknotb}, and the Planck 2018 likelihoods \cite{planck2018v, planck2018viii}. Planck measured the $C_\ell$ multipole range $1\le\ell\le7000$, corresponding to $10^{-4}\le k/\si{\mega\parsec^{-1}}\le10^{-0.3}$ \cite{ppsr}. Flexknots are parameterisations of 1D functions, consisting of a series of splines (in this case linear) joined at knots. The number and positions of knots are determined by the data, which can be performed by either combining several runs with fixed number of knots, or the number of knots being itself a parameter. In the former case, we noticed that with three knots only the mode with the central knot towards the left was being fully explored.
+            \polychord{}'s native K-nearest-neighbours clustering was unable to separate the positions of the central knot into two distinct clusters, so we explored both off-the-shelf clustering algorithms and an approach which includes likelihood information, $\mathcal L$-means. \\
         \end{minipage}
         \hfill
         \begin{minipage}{0.16\textwidth}
@@ -160,14 +165,13 @@
             }
 
             \coloredbox{
-                \textbf{$\bm{\mathcal L}$-means}\centering\\
-
-                algorithm here
+                \textbf{$\bm{\mathcal L}$-means algorithm}\centering\\
+                
+                \lstinputlisting{lmeans.txt}
             }
         \end{minipage}\\
 
 
-        \polychord{}'s native K-nearest-neighbours clustering was unable to separate the positions of the central knot into two distinct clusters, so we explored both off-the-shelf clustering algorithms and an approach which includes likelihood information, $\mathcal L$-means. \\
 
         \begin{minipage}{0.22\textwidth}
             \innerblock{\rule[-0.6ex]{0pt}{2.5ex}K-nearest-neighbours}{

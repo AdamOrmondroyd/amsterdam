@@ -1,0 +1,11 @@
+Perform K-means with K=2
+Calculate the likelihood at the centres of
+    the two clusters
+find the midpoint of the two centres
+calculate the likelihood at the midpoint
+
+if (the midpoint has greater likelihood
+   than either centre):
+    all points are within the same cluster
+else: 
+    recurively apply L-means to each cluster
