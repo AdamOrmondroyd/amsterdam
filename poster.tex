@@ -208,7 +208,7 @@
         Nested sampling algorithms have two main strategies for sampling new points from the prior:\\
         \begin{minipage}{0.22\textwidth}
             \innerblock{\rule[-0.6ex]{0pt}{2.5ex}Chain-based}{
-                Taking a sufficiently long random walk within the likelihood contour from an existing live point will generate a new live point. For example, \polychord{} first uses the covariance matrix of the live points to whiten the space, then perform's Neal's slice sampling along orthogonal directions in that space \cite{polychorda, polychordb}. \texttt{dynesty} also implements both Neal's and Hamiltonian slice sampling, along with uniform sampling and random walks \cite{dynesty}.
+                Taking a sufficiently long random walk within the likelihood contour from an existing live point will generate a new live point. For example, \polychord{} first uses the covariance matrix of the live points to whiten the space, then performs Neal's slice sampling along orthogonal directions in that space \cite{polychorda, polychordb}. \texttt{dynesty} also implements both Neal's and Hamiltonian slice sampling, along with uniform sampling and random walks \cite{dynesty}.
 
                 With multiple modes, contour whitening is ineffective, and a strategy is required to decide from which mode to sample since a random walk restricted by the likelihood contour will never reach another mode. \polychord{}, after identifying its clusters, picks one of the clusters at random in proportion to its prior volume.
             }
@@ -252,8 +252,6 @@
 
     }
     
-
-
     \renewcommand{\section}[2]{}%
     \block{References}{%
         \begin{minipage}[b]{0.35\textwidth}
@@ -264,6 +262,5 @@
         \includegraphics[width=0.1\textwidth]{images/QR.png}
     }
 
-    \note[targetoffsetx=0.18\textwidth,targetoffsety=0.04\textwidth, connection,angle=135,radius=0.08\textwidth]{scan here for cool plots and gifs demonstrating clustering!}
 \end{columns}
 \end{document}
