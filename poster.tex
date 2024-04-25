@@ -9,6 +9,7 @@
 \usepackage{siunitx}
 \usepackage{bm}
 \usepackage[final]{listings}
+\usepackage{wrapfig}
 
 \newcommand{\CORE}{The CORE collaboration}
 \newcommand{\PLANCK}{The Planck collaboration}
@@ -208,15 +209,24 @@
         Nested sampling algorithms have two main strategies for sampling new points from the prior:\\
         \begin{minipage}{0.22\textwidth}
             \innerblock{\rule[-0.6ex]{0pt}{2.5ex}Chain-based}{
+                \begin{wrapfigure}[6]{r}{0.38\textwidth}
+                    \includegraphics[width=0.38\textwidth]{images/slice}
+                \end{wrapfigure}
                 Taking a sufficiently long random walk within the likelihood contour from an existing live point will generate a new live point. For example, \polychord{} first uses the covariance matrix of the live points to whiten the space, then performs Neal's slice sampling along orthogonal directions in that space \cite{polychorda, polychordb}. \texttt{GGNS} (gradient-guided nested sampling) also implements both Neal's and Hamiltonian slice sampling, along with uniform sampling and random walks \cite{ggns}.
 
-                With multiple modes, contour whitening is ineffective, and a strategy is required to decide from which mode to sample since a random walk restricted by the likelihood contour will never reach another mode. \polychord{}, after identifying its clusters, picks one of the clusters at random in proportion to its prior volume.
+                Multiple-modal problems render contour whitening ineffective, and a strategy is required to decide from which mode to sample since a random walk cannot pass through the likelihood contour.
+                \\
+                \vspace{7pt}
             }
         \end{minipage}\hfill
         \begin{minipage}{0.22\textwidth}
             \innerblock{\rule[-0.6ex]{0pt}{2.5ex}Region-based}{
-                Region-based samplers construct regions around the live points to approximate the likelihood contour, for example \texttt{MultiNest} constructs a series of ellipsoids \cite{multinesta, multinestb, multinestc}. These regions are usually expanded by some numerical factor to improve their chances of fully enclosing the likelihood contour, then a point is rejection-sampled from them. The curse of dimensionality means that these techniques are only effective up to $\mathcal O(10)$ dimensions, since the rejection sampling becomes too inefficient, or the expansion factor would have to be so low that significant regions of the likelihood contour would be missed. Multi-modality also causes inefficiency since the ellipsoids have to be very large to encompass all modes.
-                \\
+                \begin{wrapfigure}[6]{r}{0.38\textwidth}
+                    \includegraphics[width=0.38\textwidth]{images/region}
+                \end{wrapfigure}
+
+                Region-based samplers construct regions around the live points to approximate the likelihood contour, for example \texttt{MultiNest} constructs a series of ellipsoids \cite{multinesta, multinestb, multinestc}. These regions are usually expanded by some numerical factor to improve their chances of fully enclosing the likelihood contour, then a point is rejection-sampled from them.
+                The curse of dimensionality means that these techniques are only effective up to $\mathcal O(10)$ dimensions, as either rejection sampling becomes inefficient, or the expansion factor would have to be so low that significant regions of the likelihood contour would be missed. Clustering can be used to separate the live points into discrete regions, rather than a single sparse region.
             }
         \end{minipage}\\
         \vspace{1em}
