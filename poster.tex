@@ -248,7 +248,7 @@
             }
         \end{minipage}
 
-        Since $\overline{X_iX_j} \neq \overline{X_i}\,\overline{X_j}$, the error on the prior volumes estimates of each cluster are correlated. This is important when deciding from which cluster to sample; currently \polychord{} chooses a cluster propotionally to its prior volume $\overline{X_i}$, but this neglects their correlation. We are experimenting with drawing a set of $X_i$ from their joint distribution before each live point is generated, which has improved posteriors of symmetric multi-modal likelihoods.\\
+        Since $\overline{X_iX_j} \neq \overline{X_i}\,\overline{X_j}$, the error on the prior volumes estimates of each cluster are correlated. This is important when deciding from which cluster to sample; currently \polychord{} chooses a cluster propotionally to its prior volume $\overline{X_i}$, but neglects their correlation. We are experimenting with drawing a set of $X_i$ from their joint distribution before each live point is generated, which has improved posteriors of symmetric multi-modal likelihoods.\\
 
     }
     
