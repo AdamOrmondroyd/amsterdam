@@ -10,6 +10,7 @@
 \usepackage{bm}
 \usepackage[final]{listings}
 \usepackage{wrapfig}
+\usepackage{ragged2e}
 
 \newcommand{\CORE}{The CORE collaboration}
 \newcommand{\PLANCK}{The Planck collaboration}
@@ -166,7 +167,7 @@
             }
 
             \coloredbox{
-                \textbf{The $\bm{\mathcal L}$-means algorithm}\centering\\
+                \textbf{Prototype $\bm{\mathcal L}$-means algorithm}\centering\\
                 
                 \lstinputlisting{lmeans.txt}
             }
@@ -188,7 +189,7 @@
             }
         \end{minipage}
         \begin{minipage}{0.22\textwidth}
-            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}DBSCAN}{
+            \innerblock{\rule[-0.6ex]{0pt}{2.5ex}DBSCAN ($\epsilon=0.5$)}{
                 \centering
                 \includegraphics[width=0.9\textwidth]{images/amsterdam/dbscan}
             }
@@ -200,7 +201,7 @@
                 \includegraphics[width=0.9\textwidth]{images/amsterdam/convex}
             }
         \end{minipage}\\
-        \coloredbox{K-nearest-neighbours and DBSCAN fail to separate the central knot into two clusters, while X-means does so reliably. $\mathcal L$-means was able to separate the central knot into multiple clusters, but also tended to over-cluster. Functional posterior plots created using \texttt{fgivenx} \cite{fgivenx}, and scatterplots showing clusters were created using a development branch of \texttt{anesthetic}\cite{anesthetic}.}
+        \coloredbox{K-nearest-neighbours and DBSCAN fail to separate the central knot into two clusters, while X-means does so reliably. $\mathcal L$-means is able to separate the central knot into multiple clusters, but also tends to over-cluster. Functional posterior plots were created using \texttt{fgivenx} \cite{fgivenx}, and scatterplots showing clusters were created using a development branch of \texttt{anesthetic}\cite{anesthetic}.}
     }
 
     \column{0.5}
@@ -209,10 +210,14 @@
         Nested sampling algorithms have two main strategies for sampling new points from the prior:\\
         \begin{minipage}{0.22\textwidth}
             \innerblock{\rule[-0.6ex]{0pt}{2.5ex}Chain-based}{
-                \begin{wrapfigure}[6]{r}{0.38\textwidth}
-                    \includegraphics[width=0.38\textwidth]{images/slice}
+                \begin{wrapfigure}[10]{r}{0.633\textwidth}
+                    \includegraphics[width=0.633\textwidth]{images/slice}
                 \end{wrapfigure}
-                Taking a sufficiently long random walk within the likelihood contour from an existing live point will generate a new live point. For example, \polychord{} first uses the covariance matrix of the live points to whiten the space, then performs Neal's slice sampling along orthogonal directions in that space \cite{polychorda, polychordb}. \texttt{GGNS} (gradient-guided nested sampling) also implements both Neal's and Hamiltonian slice sampling, along with uniform sampling and random walks \cite{ggns}.
+                \raggedright
+                A sufficiently long random walk within the likelihood contour from an existing live point will generate a new live point.
+
+                \justifying
+                \polychord{} first uses the covariance matrix of the live points to whiten the space, then performs Neal's slice sampling along orthogonal directions in that space \cite{polychorda, polychordb}. \texttt{GGNS} (gradient-guided nested sampling) also implements both Neal's and Hamiltonian slice sampling, along with uniform sampling and random walks \cite{ggns}.
 
                 Multiple-modal problems render contour whitening ineffective, and a strategy is required to decide from which mode to sample since a random walk cannot pass through the likelihood contour.
                 \\
@@ -221,23 +226,27 @@
         \end{minipage}\hfill
         \begin{minipage}{0.22\textwidth}
             \innerblock{\rule[-0.6ex]{0pt}{2.5ex}Region-based}{
-                \begin{wrapfigure}[6]{r}{0.38\textwidth}
-                    \includegraphics[width=0.38\textwidth]{images/region}
+                \begin{wrapfigure}[10]{r}{0.633\textwidth}
+                    \includegraphics[width=0.633\textwidth]{images/region}
                 \end{wrapfigure}
 
-                Region-based samplers construct regions around the live points to approximate the likelihood contour, for example \texttt{MultiNest} constructs a series of ellipsoids \cite{multinesta, multinestb, multinestc}. These regions are usually expanded by some numerical factor to improve their chances of fully enclosing the likelihood contour, then a point is rejection-sampled from them.
+                \raggedright
+                Region-based samplers construct regions around the live points to approximate the likelihood contour.
+
+                \justifying
+                \texttt{MultiNest} constructs a series of ellipsoids \cite{multinesta, multinestb, multinestc}. These regions are usually expanded by a numerical factor to improve their chances of fully enclosing the likelihood contour, then a point is rejection-sampled from them.
                 The curse of dimensionality means that these techniques are only effective up to $\mathcal O(10)$ dimensions, as either rejection sampling becomes inefficient, or the expansion factor would have to be so low that significant regions of the likelihood contour would be missed. Clustering can be used to separate the live points into discrete regions, rather than a single sparse region.
             }
         \end{minipage}\\
-        \vspace{1em}
+        \vspace{0.655em}
 
         \coloredbox{Hybrid methods combine the two approaches in an attempt to alleviate the dimensionality scaling of region-based methods, while reducing the number of likelihood evaluations made outside the contour \cite{nsmethods, ggns, nestedfit, ultranest}.}
 
     }
 
-    \block{Correlated cluster volumes}{%
-        \begin{minipage}{0.22\textwidth}
-            When a cluster $p$ is divided, the remaining prior volume $X_p$ is divided among its subclusters $X_i$. However, in nested sampling we do not know the precise prior volume, only its expectation value $\overline{X}_p$ and associated error. This is then divided according to the proportion of live points in each cluster $n_i$:
+    \block{Correlated cluster volumes (in progress!)}{%
+        \begin{minipage}{0.31\textwidth}
+            When a cluster $p$ is divided, the remaining prior volume $X_p$ is divided among its subclusters $X_i$. However, in nested sampling, we do not know the precise prior volumes, only expectation values and errors. This is divided according to the proportion of live points in each cluster $n_i$:
             \coloredbox{
             \begin{equation}
                 \begin{aligned}
@@ -249,17 +258,17 @@
             }
         
         \end{minipage}\hfill
-        \begin{minipage}{0.22\textwidth}
+        \begin{minipage}{0.13\textwidth}
             \coloredbox{
             \centering
             \includegraphics[width=0.9\textwidth]{images/volumes.pdf}
 
-            KDE of posterior samples from twin 2D Gaussian likelihoods with 2000 live points, viewed along one of the axes.
+            Accounting for prior volume correlations may provide more accurate posteriors.
             }
         \end{minipage}
 
-        Since $\overline{X_iX_j} \neq \overline{X_i}\,\overline{X_j}$, the error on the prior volumes estimates of each cluster are correlated. This is important when deciding from which cluster to sample; currently \polychord{} chooses a cluster propotionally to its prior volume $\overline{X_i}$, but neglects their correlation. We are experimenting with drawing a set of $X_i$ from their joint distribution before each live point is generated, which has improved posteriors of symmetric multi-modal likelihoods.\\
-
+        Since $\overline{X_iX_j} \neq \overline{X_i}\,\overline{X_j}$, the error on the prior volumes estimates of each cluster are correlated. This is important when deciding from which cluster to sample; currently \polychord{} chooses a cluster propotionally to its prior volume $\overline{X_i}$, but neglects their correlation. We are experimenting with drawing a set of $X_i$ from their joint distribution before each live point is generated, which has shown promise with symmetric multi-modal likelihoods.
+        % \vspace{0.1em}
     }
     
     \renewcommand{\section}[2]{}%
